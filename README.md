@@ -44,6 +44,30 @@ Although hyperparameter tuning significantly reduced training error, validation 
 ## Overfitting Analysis
 The tuned Random Forest model achieves a substantially lower training MAE (~7,200) compared to the validation MAE (~17,500). This gap indicates that the model fits the training data very well but does not generalize proportionally to unseen data. This behavior highlights the bias–variance tradeoff and the presence of inherent noise in the dataset.
 
+## Model Explainability
+
+To better understand how the model arrives at its predictions, feature importance and permutation importance analyses were performed on the trained Random Forest model.
+
+### Feature Importance
+Random Forest feature importance highlights which input features contribute the most to reducing prediction error across the ensemble of trees. The most influential features were related to overall house quality, living area size, basement size, and garage-related attributes.
+
+### Permutation Importance
+Permutation importance was used as a model-agnostic explainability technique to validate these findings. This method measures the increase in prediction error when individual features are randomly shuffled, thereby breaking their relationship with the target variable.
+
+The top features identified through permutation importance include:
+- Overall house quality (`OverallQual`)
+- Above-ground living area (`GrLivArea`)
+- Total basement area (`TotalBsmtSF`)
+- Finished basement area (`BsmtFinSF1`)
+- First floor area (`1stFlrSF`)
+- Garage size and capacity (`GarageArea`, `GarageCars`)
+
+### Insights
+The results align strongly with real-world intuition: houses with better construction quality, larger usable living spaces, and adequate basement and garage areas tend to command higher prices. The consistency between Random Forest feature importance and permutation importance increases confidence that the model relies on meaningful structural attributes rather than spurious correlations.
+
+This explainability step helps ensure that the model’s predictions are interpretable and grounded in domain-relevant factors, which is critical for deploying machine learning models in real-world decision-making scenarios.
+
+
 ## Project Structure
 <img width="293" height="252" alt="image" src="https://github.com/user-attachments/assets/31e538e2-26be-47d8-89c4-082052ce2855" />
 
